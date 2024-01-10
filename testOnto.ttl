@@ -1,0 +1,157 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sar: <http://example.org/sar#> .
+
+sar: a owl:Ontology ;
+    rdfs:label "Search and Rescue Ontology" ;
+    rdfs:comment "An ontology for representing and reasoning about search and rescue missions" ;
+    owl:versionInfo "1.0" .
+
+sar:Agent a owl:Class ;
+    rdfs:label "Agent" ;
+    rdfs:comment "A person or a thing that can act in a search and rescue mission" .
+
+sar:Human a owl:Class ;
+    rdfs:label "Human" ;
+    rdfs:comment "A human agent that can act in a search and rescue mission" ;
+    rdfs:subClassOf sar:Agent .
+
+sar:Robot a owl:Class ;
+    rdfs:label "Robot" ;
+    rdfs:comment "A robot agent that can act in a search and rescue mission" ;
+    rdfs:subClassOf sar:Agent .
+
+sar:Dog a owl:Class ;
+    rdfs:label "Dog" ;
+    rdfs:comment "A dog agent that can act in a search and rescue mission" ;
+    rdfs:subClassOf sar:Agent .
+
+sar:Drone a owl:Class ;
+    rdfs:label "Drone" ;
+    rdfs:comment "A drone agent that can act in a search and rescue mission" ;
+    rdfs:subClassOf sar:Agent .
+
+sar:Role a owl:Class ;
+    rdfs:label "Role" ;
+    rdfs:comment "A function or a responsibility that an agent can have in a search and rescue mission" .
+
+sar:TeamLeader a owl:Class ;
+    rdfs:label "Team Leader" ;
+    rdfs:comment "A role that involves coordinating and managing the search and rescue mission" ;
+    rdfs:subClassOf sar:Role .
+
+sar:RobotOperator a owl:Class ;
+    rdfs:label "Robot Operator" ;
+    rdfs:comment "A role that involves controlling and monitoring a robot agent" ;
+    rdfs:subClassOf sar:Role .
+
+sar:InFieldRescuer a owl:Class ;
+    rdfs:label "In-Field Rescuer" ;
+    rdfs:comment "A role that involves searching and rescuing victims in the field" ;
+    rdfs:subClassOf sar:Role .
+
+sar:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:comment "A property that relates an agent to a role that it has in a search and rescue mission" ;
+    rdfs:domain sar:Agent ;
+    rdfs:range sar:Role .
+
+sar:hasName a owl:DatatypeProperty ;
+    rdfs:label "has name" ;
+    rdfs:comment "A property that relates an agent to its name" ;
+    rdfs:domain sar:Agent ;
+    rdfs:range xsd:string .
+
+sar:Mission a owl:Class ;
+    rdfs:label "Mission" ;
+    rdfs:comment "A search and rescue mission that has a goal, a location, and a duration" .
+
+sar:hasGoal a owl:DatatypeProperty ;
+    rdfs:label "has goal" ;
+    rdfs:comment "A property that relates a mission to its goal" ;
+    rdfs:domain sar:Mission ;
+    rdfs:range xsd:string .
+
+sar:hasLocation a owl:DatatypeProperty ;
+    rdfs:label "has location" ;
+    rdfs:comment "A property that relates a mission to its location" ;
+    rdfs:domain sar:Mission ;
+    rdfs:range xsd:string .
+
+sar:hasStartTime a owl:DatatypeProperty ;
+    rdfs:label "has start time" ;
+    rdfs:comment "A property that relates a mission to its start time" ;
+    rdfs:domain sar:Mission ;
+    rdfs:range xsd:dateTime .
+
+sar:hasEndTime a owl:DatatypeProperty ;
+    rdfs:label "has end time" ;
+    rdfs:comment "A property that relates a mission to its end time" ;
+    rdfs:domain sar:Mission ;
+    rdfs:range xsd:dateTime .
+
+sar:participatesIn a owl:ObjectProperty ;
+    rdfs:label "participates in" ;
+    rdfs:comment "A property that relates an agent to a mission that it participates in" ;
+    rdfs:domain sar:Agent ;
+    rdfs:range sar:Mission .
+
+sar:Task a owl:Class ;
+    rdfs:label "Task" ;
+    rdfs:comment "A task that an agent can perform in a search and rescue mission" .
+
+sar:SearchTask a owl:Class ;
+    rdfs:label "Search Task" ;
+    rdfs:comment "A task that involves searching for victims or hazards in a search and rescue mission" ;
+    rdfs:subClassOf sar:Task .
+
+sar:RescueTask a owl:Class ;
+    rdfs:label "Rescue Task" ;
+    rdfs:comment "A task that involves rescuing or assisting a victim in a search and rescue mission" ;
+    rdfs:subClassOf sar:Task .
+
+sar:hasDescription a owl:DatatypeProperty ;
+    rdfs:label "has description" ;
+    rdfs:comment "A property that relates a task to its description" ;
+    rdfs:domain sar:Task ;
+    rdfs:range xsd:string .
+
+sar:hasPriority a owl:DatatypeProperty ;
+    rdfs:label "has priority" ;
+    rdfs:comment "A property that relates a task to its priority level" ;
+    rdfs:domain sar:Task ;
+    rdfs:range xsd:integer .
+
+sar:hasStatus a owl:DatatypeProperty ;
+    rdfs:label "has status" ;
+    rdfs:comment "A property that relates a task to its status" ;
+    rdfs:domain sar:Task ;
+    rdfs:range xsd:string .
+
+sar:performs a owl:ObjectProperty ;
+    rdfs:label "performs" ;
+    rdfs:comment "A property that relates an agent to a task that it performs in a search and rescue mission" ;
+    rdfs:domain sar:Agent ;
+    rdfs:range sar:Task .
+
+sar:Victim a owl:Class ;
+    rdfs:label "Victim" ;
+    rdfs:comment "A person who is in need of rescue or assistance in a search and rescue mission" .
+
+sar:hasID a owl:DatatypeProperty ;
+    rdfs:label "has ID" ;
+    rdfs:comment "A property that relates a victim to its identification number" ;
+    rdfs:domain sar:Victim ;
+    rdfs:range xsd:integer .
+
+sar:hasCondition a owl:DatatypeProperty ;
+    rdfs:label "has condition" ;
+    rdfs:comment "A property that relates a victim to its medical condition" ;
+    rdfs:domain sar:Victim ;
+    rdfs:range xsd:string .
+
+sar:hasLocation a owl:DatatypeProperty ;
+    rdfs:label "has location" ;
+    rdfs:comment "A property that relates a victim to its location" .
