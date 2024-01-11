@@ -1,0 +1,134 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sar: <http://example.com/sar#> .
+
+sar:Wildfire rdf:type owl:Class ;
+    rdfs:label "Wildfire" ;
+    rdfs:comment "A large, uncontrolled fire that spreads rapidly and affects a wide area" .
+
+sar:SAR_Mission rdf:type owl:Class ;
+    rdfs:label "SAR Mission" ;
+    rdfs:comment "A search and rescue operation to locate and assist people in distress or imminent danger" ;
+    rdfs:subClassOf owl:Thing ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:has_location ;
+        owl:someValuesFrom sar:Wildfire ] ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:has_duration ;
+        owl:someValuesFrom xsd:duration ] ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:has_team ;
+        owl:someValuesFrom sar:SAR_Team ] ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:has_equipment ;
+        owl:someValuesFrom sar:SAR_Equipment ] ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:uses_technique ;
+        owl:someValuesFrom sar:SAR_Technique ] ;
+    rdfs:subClassOf [ rdf:type owl:Restriction ;
+        owl:onProperty sar:identifies_victim ;
+        owl:someValuesFrom sar:Victim ] .
+
+sar:has_location rdf:type owl:ObjectProperty ;
+    rdfs:label "has location" ;
+    rdfs:comment "The property that relates a SAR mission to the location where it takes place" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:Wildfire .
+
+sar:has_duration rdf:type owl:DatatypeProperty ;
+    rdfs:label "has duration" ;
+    rdfs:comment "The property that relates a SAR mission to the duration of time that it lasts" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range xsd:duration .
+
+sar:has_team rdf:type owl:ObjectProperty ;
+    rdfs:label "has team" ;
+    rdfs:comment "The property that relates a SAR mission to the team that performs it" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:SAR_Team .
+
+sar:has_equipment rdf:type owl:ObjectProperty ;
+    rdfs:label "has equipment" ;
+    rdfs:comment "The property that relates a SAR mission to the equipment that is used in it" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:SAR_Equipment .
+
+sar:uses_technique rdf:type owl:ObjectProperty ;
+    rdfs:label "uses technique" ;
+    rdfs:comment "The property that relates a SAR mission to the technique that is applied in it" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:SAR_Technique .
+
+sar:identifies_victim rdf:type owl:ObjectProperty ;
+    rdfs:label "identifies victim" ;
+    rdfs:comment "The property that relates a SAR mission to the victim that is identified in it" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:Victim .
+
+sar:SAR_Team rdf:type owl:Class ;
+    rdfs:label "SAR Team" ;
+    rdfs:comment "A group of people that are trained and equipped to perform search and rescue operations" .
+
+sar:SAR_Equipment rdf:type owl:Class ;
+    rdfs:label "SAR Equipment" ;
+    rdfs:comment "A device or tool that is used to assist in search and rescue operations" .
+
+sar:SAR_Technique rdf:type owl:Class ;
+    rdfs:label "SAR Technique" ;
+    rdfs:comment "A method or procedure that is used to conduct search and rescue operations" .
+
+sar:Victim rdf:type owl:Class ;
+    rdfs:label "Victim" ;
+    rdfs:comment "A person that is in need of assistance due to a hazardous situation" .
+
+sar:Environmental_Condition rdf:type owl:Class ;
+    rdfs:label "Environmental Condition" ;
+    rdfs:comment "A state or quality of the environment that affects a SAR mission" .
+
+sar:affects_condition rdf:type owl:ObjectProperty ;
+    rdfs:label "affects condition" ;
+    rdfs:comment "The property that relates a SAR mission to the environmental condition that it affects" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range sar:Environmental_Condition .
+
+sar:has_risk_level rdf:type owl:DatatypeProperty ;
+    rdfs:label "has risk level" ;
+    rdfs:comment "The property that relates a SAR mission to the level of risk that it involves" ;
+    rdfs:domain sar:SAR_Mission ;
+    rdfs:range xsd:string .
+
+sar:Mission_1 rdf:type sar:SAR_Mission ;
+    sar:has_location sar:Wildfire_1 ;
+    sar:has_duration "PT2H"^^xsd:duration ;
+    sar:has_team sar:Team_1 ;
+    sar:has_equipment sar:Drone_1 ;
+    sar:uses_technique sar:Thermal_Imaging ;
+    sar:identifies_victim sar:Person_1 ;
+    sar:affects_condition sar:Smoke ;
+    sar:has_risk_level "High" .
+
+sar:Wildfire_1 rdf:type sar:Wildfire ;
+    rdfs:label "Wildfire 1" ;
+    rdfs:comment "A wildfire that occurred in Greece on January 11, 2024" .
+
+sar:Team_1 rdf:type sar:SAR_Team ;
+    rdfs:label "Team 1" ;
+    rdfs:comment "A SAR team that consists of four members" .
+
+sar:Drone_1 rdf:type sar:SAR_Equipment ;
+    rdfs:label "Drone 1" ;
+    rdfs:comment "A drone that is equipped with a thermal camera and a GPS tracker" .
+
+sar:Thermal_Imaging rdf:type sar:SAR_Technique ;
+    rdfs:label "Thermal Imaging" ;
+    rdfs:comment "A technique that uses infrared radiation to detect heat signatures of objects or people" .
+
+sar:Person_1 rdf:type sar:Victim ;
+    rdfs:label "Person 1" ;
+    rdfs:comment "A person that was trapped in a burning house and was rescued by Team 1" .
+
+sar:Smoke rdf:type sar:Environmental_Condition ;
+    rdfs:label "Smoke" ;
+    rdfs:comment "A condition that reduces visibility and air quality due to the presence of airborne particles from a fire" .
